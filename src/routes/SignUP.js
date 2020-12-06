@@ -1,25 +1,29 @@
-import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import React, { Component, useContext, useState } from "react";
+import { Form } from "semantic-ui-react";
+import axios from "axios";
+import { Context } from "../components/Context";
+const SignUP = () => {
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+    message: "",
+  });
 
-class SignUp extends Component {
-  state = {
-            name: '',
-            email: '',
-            password: '',
-            repeatPassword: '',
-            message: ''
-          }
+  const { login } = useContext(Context);
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  const handleChange = (e, { name, value }) => setState({ [name]: value });
 
-  handleSubmit = () => {
+
+  const handleSubmit = () => {
 
     const { name, email, password, repeatPassword, message } = this.state
 
     var isValid = true;  
     
 
-    if((password.length > 8 && password.length < 20) || !password){
+    if((password.length < 8 || password.length > 20) || (!password)){
       
       this.setState({message: "Password length should be between 8 and 20"})
       isValid = false;
@@ -50,62 +54,72 @@ class SignUp extends Component {
     
 
 
-    if(isValid && message.length === 0){
-      this.setState({message: "Success!!!"});
+    if (isValid) {
+      setState({ message: "Success!!!" });
+      login("dhasjkdhakj")
+      // fetch("http://0f899f22e5ee.ngrok.io/api/register/", {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   mode: "no-cors",
+      //   body: {
+      //     username: name,
+      //     email: email,
+      //     password: password,
+      //     password2: repeatPassword,
+      //   },
+      // })
+      //   .then((token) => console.log("Token: ", token))
+      //   .catch(console.error);
     }
 
   }
 
-  render() {
-    const { name, email, password, repeatPassword, message } = this.state
+  const { name, email, password, repeatPassword, message } = state;
 
-    return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
+  return (
+    <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Input
+            placeholder="Name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
 
-          <Form.Group>
+          <Form.Input
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
 
-            <Form.Input
-              placeholder='Name'
-              name='name'
-              value={name}
-              onChange={this.handleChange}
-            />
+          <Form.Input
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            type="password"
+          />
 
-            <Form.Input
-              placeholder='Email'
-              name='email'
-              value={email}
-              onChange={this.handleChange}
-              
-            />
+          <Form.Input
+            placeholder="Repeat Password"
+            name="repeatPassword"
+            value={repeatPassword}
+            onChange={handleChange}
+            type="password"
+          />
 
-            <Form.Input 
-              placeholder='Password'
-              name='password'
-              value={password}
-              onChange={this.handleChange}
-              type="password"
-            />
+          <Form.Button content="Submit" />
+        </Form.Group>
+      </Form>
 
-            <Form.Input 
-              placeholder='Repeat Password'
-              name='repeatPassword'
-              value={repeatPassword}
-              onChange={this.handleChange}
-              type="password"
-            />
+      <h2>{message}</h2>
+    </div>
+  );
+};
 
-            <Form.Button content='Submit' />
-
-          </Form.Group>
-          
-        </Form>
-
-        <h2>{message}</h2>
-      </div>
-    )
-  }
-}
-
-export default SignUp
+export default SignUP;

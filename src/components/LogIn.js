@@ -1,59 +1,51 @@
-import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import React, { Component, useContext, useState } from "react";
+import { Form } from "semantic-ui-react";
+import { Context } from "./Context";
 
-class LogIn extends Component {
-  state = {
-            name: '',
-            password: '',
-            message: ''
-          }
+const LogIn = () => {
+  const [state, setState] = useState({
+    name: "",
+    password: "",
+    message: "",
+  });
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  const { login } = useContext(Context);
 
-  handleSubmit = () => {
+  const handleChange = (e, { name, value }) => setState({ [name]: value });
 
-    const { name, password,message } = this.state;
+  const handleSubmit = () => {
+    const { name, password, message } = state;
+    login("dhasjkdhakj");
+  };
 
+  const { name, password, message } = state;
 
-    
+  return (
+    <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Input
+            placeholder="Name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
 
-  }
+          <Form.Input
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            type="password"
+          />
 
-  render() {
-    const { name, password,  message } = this.state
+          <Form.Button content="Submit" onClick={handleSubmit} />
+        </Form.Group>
+      </Form>
 
-    return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
+      <h2>{message}</h2>
+    </div>
+  );
+};
 
-          <Form.Group>
-
-            <Form.Input
-              placeholder='Name'
-              name='name'
-              value={name}
-              onChange={this.handleChange}
-            />
-
-            <Form.Input 
-              placeholder='Password'
-              name='password'
-              value={password}
-              onChange={this.handleChange}
-              type="password"
-            />
-
-
-            <Form.Button content='Submit' />
-
-          </Form.Group>
-          
-        </Form>
-
-        <h2>{message}</h2>
-      </div>
-    )
-  }
-}
-
-export default LogIn
+export default LogIn;
