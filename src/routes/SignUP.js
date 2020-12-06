@@ -18,39 +18,39 @@ const SignUP = () => {
 
   const handleSubmit = () => {
 
-    const { name, email, password, repeatPassword, message } = this.state
+    const { name, email, password, repeatPassword, message } = state
 
     var isValid = true;  
     
 
-    if((password.length < 8 || password.length > 20) || (!password)){
+    // if((password.length < 8 || password.length > 20) || (!password)){
       
-      this.setState({message: "Password length should be between 8 and 20"})
-      isValid = false;
+    //   setState({message: "Password length should be between 8 and 20"})
+    //   isValid = false;
 
 
-    }else if(password.toString() !== repeatPassword.toString()){
+    // }else if(password.toString() !== repeatPassword.toString()){
 
-      this.setState({message:'Passwords do not match'});
-      isValid = false;
+    //   setState({message:'Passwords do not match'});
+    //   isValid = false;
 
-    }else if ((typeof email !== "undefined") || (!email)) {
+    // }else if ((typeof email !== "undefined") || (!email)) {
 
-      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+    //   var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
       
-      if(!pattern.test(email)){
+    //   if(!pattern.test(email)){
 
-        isValid = false;
-        this.setState({message:'Email is not valid'});
+    //     isValid = false;
+    //     setState({message:'Email is not valid'});
 
-      }
+    //   }
 
-    }else if (!name){
+    // }else if (!name){
       
-      isValid = false;
-      this.setState({message:'Please enter your username'});
+    //   isValid = false;
+    //   setState({message:'Please enter your username'});
 
-    }
+    // }
     
 
 
